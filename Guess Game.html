@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Game Typing</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <style>
+        body {
+            background-color: burlywood;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .game-container {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .game-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .game-logo svg {
+            width: 80px;
+            height: 80px;
+            fill: brown;
+            animation: pulse 1.5s infinite alternate;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+
+            100% {
+                transform: scale(1.1);
+            }
+        }
+
+        .input-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        input {
+            background-color: brown;
+            color: white;
+            border-radius: 10px;
+            border: none;
+            padding: 10px;
+            font-size: 18px;
+            text-align: center;
+            box-shadow: 0 4px 0 red;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        input:focus {
+            box-shadow: 0 4px 10px rgba(255, 0, 0, 0.6);
+        }
+
+        .game-info {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            color: black;
+        }
+    </style>
+</head>
+
+<body>
+    <h1 style="text-align: center; color: brown;">Guess Name Game</h1>
+    <div class="game-container" style="width: 500px; height: 200px;">
+        <div class="game-logo">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="80" height="80" fill="brown">
+                <path d="M20 5H4c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zM6 16H4v-2h2v2zm0-4H4v-2h2v2zm0-4H4V6h2v2zm4 8H8v-2h2v2zm0-4H8v-2h2v2zm0-4H8V6h2v2zm4 8h-2v-2h2v2zm0-4h-2v-2h2v2zm0-4h-2V6h2v2zm4 8h-2v-2h2v2zm0-4h-2v-2h2v2zm0-4h-2V6h2v2zm2 8h-2v-2h2v2z"/>
+            </svg>
+            
+        </div>
+
+        <div class="input-container" >
+            <input style="width: 350px;" id="input" type="text" placeholder="Type here...">
+        </div>
+
+        <div class="game-info">
+            <p id="log"></p>
+            <p id="log2"></p>
+        </div>
+    </div>
+
+    <script>
+        var name = "dona";
+        var count = 0;
+        var countCh = 0;
+        const input = document.querySelector("input");
+        const log = document.querySelector("#log");
+        const log2 = document.querySelector("#log2");
+    
+        input.addEventListener("keypress", (e) => {
+            if (String.fromCharCode(e.charCode) === name.charAt(countCh)) {
+                countCh++;
+            } else {
+                e.preventDefault();
+            }
+    
+            count++;
+            log.innerText = `Counter:${count}`;
+    
+            if (countCh === name.length) {
+                setTimeout(() => {
+                    input.style.backgroundColor = "gray"; 
+                    input.style.color = "white"; 
+                    input.style.cursor = "not-allowed"; 
+                    log2.innerText = `Congrats you win! and You guess true name after: ${count} times`;
+                    count = 0;
+                    countCh = 0;
+                    input.disabled = true; 
+                }, 50);
+            }
+        });
+    </script>
+    
+
+</body>
+
+</html>
